@@ -16,7 +16,7 @@ driver.get(url)
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
 #connect to database
-client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://<user>:<password>@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
 db = client["Shoes"]
 mycol = db["nike"]
 
