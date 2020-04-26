@@ -22,20 +22,33 @@ client = MongoClient("mongodb+srv://<username>:<password>@cluster0-wgm3y.mongodb
 db = client["Shoes"]
 mycol = db["nike"]
 
-#find every div with class name
-aTagsInLi = driver.find_elements_by_class_name('product-card__img-link-overlay')
+aTagsInLi = driver.find_elements_by_xpath("//div[@class='product-card css-1y22mjo css-z5nr6i css-11ziap1 css-zk7jxt css-dpr2cn product-grid__card ']")
 line_items=[]
 for a in aTagsInLi:
-    #print(a.get_attribute('href'))
+    
+    #get div container for image details
     img = a.find_element_by_tag_name('img')
+    #get div for site line
+    siteDiv = a.find_element_by_tag_name('a')
 
+    #get name of shoe
+    name = img.get_attribute('alt')
+    #get image url
+    image_url = img.get_attribute('src')
+    #get site link
+    site = siteDiv.get_attribute('href')
+    #get category of shoe
+    category = a.find_element_by_class_name('product-card__subtitle').text
+
+    #create json object for database
     myjson3 = {
-                'name': img.get_attribute('alt'),
-                'image_url': img.get_attribute('src'),
-                'site': a.get_attribute('href')
+                'name': name,
+                'image_url': image_url,
+                'site': site,
+                'category': category
             }
+    print(myjson3)
     line_items.append(myjson3)
-    #print("img link: ", img.get_attribute('src'), " name: ", img.get_attribute('alt'))
 
 #clear existing db
 mycol.delete_many({})
