@@ -18,7 +18,7 @@ driver.get(url)
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
 #connect to database
-client = MongoClient("mongodb+srv://<username>:<password>@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
 db = client["Shoes"]
 mycol = db["nike"]
 
@@ -40,12 +40,23 @@ for a in aTagsInLi:
     #get category of shoe
     category = a.find_element_by_class_name('product-card__subtitle').text
 
+    #determine gender
+    if "Men" in category:
+        gender = "Male"
+    elif "Women" in category:
+        gender = "Female"
+    elif "Kid" in category or "Baby" in category or "Toddler" in category:
+        gender = "Kid"
+    else:
+        gender = "Unisex"
+
     #create json object for database
     myjson3 = {
                 'name': name,
                 'image_url': image_url,
                 'site': site,
-                'category': category
+                'category': category,
+                'gender': gender
             }
     print(myjson3)
     line_items.append(myjson3)
