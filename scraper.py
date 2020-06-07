@@ -5,6 +5,7 @@ from selenium import webdriver
 import json
 from pymongo import MongoClient
 import sys
+import time
 sys.stdout = open('file', 'w', encoding="utf-8")
 
 
@@ -15,6 +16,8 @@ driver = webdriver.Firefox()
 # get web page
 driver.get(url)
 # execute script to scroll down the page
+driver.maximize_window()
+time.sleep(5)
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
 #connect to database
@@ -22,10 +25,12 @@ client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.
 db = client["Shoes"]
 mycol = db["nike"]
 
-aTagsInLi = driver.find_elements_by_xpath("//div[@class='product-card css-1y22mjo css-z5nr6i css-11ziap1 css-zk7jxt css-dpr2cn product-grid__card ']")
+aTagsInLi = driver.find_elements_by_xpath("//div[@class='product-card css-pm7x6j css-z5nr6i css-11ziap1 css-zk7jxt css-dpr2cn product-grid__card ']")
+                                                          
 line_items=[]
 for a in aTagsInLi:
     
+    print("here")
     #get div container for image details
     img = a.find_element_by_tag_name('img')
     #get div for site line
