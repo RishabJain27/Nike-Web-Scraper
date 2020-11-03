@@ -24,7 +24,7 @@ driver.execute_script("window.scrollTo(0, document.body.scrollHeight);var lenOfP
 client = MongoClient("mongodb+srv://rjain9:Ilikepie16%21@cluster0-wgm3y.mongodb.net/test?retryWrites=true&w=majority")
 db = client["Shoes"]
 mycol = db["nike"]
-aTagsInLi = driver.find_elements_by_xpath("//div[@class='product-card css-ua5d08 css-z5nr6i css-11ziap1 css-zk7jxt css-dpr2cn product-grid__card ']")
+aTagsInLi = driver.find_elements_by_xpath("//div[@class='product-card css-1ikfoht css-z5nr6i css-11ziap1 css-zk7jxt css-dpr2cn product-grid__card ']")
                                                           
 line_items=[]
 for a in aTagsInLi:
