@@ -27,6 +27,7 @@ mycol = db["nike"]
 aTagsInLi = driver.find_elements("xpath", "//div[@class='product-card product-grid__card  css-1t0asop']")
                                                           
 line_items=[]
+categoryCounter = 0
 for a in aTagsInLi:
     
     #get div container for image details
@@ -41,7 +42,7 @@ for a in aTagsInLi:
     #get site link
     site = siteDiv.get_attribute('href')
     #get category of shoe
-    category = a.find_element("xpath", "//div[@class='product-card__subtitle']").text
+    category = a.find_elements("xpath", "//div[@class='product-card__subtitle']")[categoryCounter].text
 
     #determine gender
     if "Men" in category:
@@ -64,6 +65,7 @@ for a in aTagsInLi:
             }
     print(myjson3)
     line_items.append(myjson3)
+    categoryCounter = categoryCounter + 1
 
 #clear existing db
 mycol.delete_many({})
